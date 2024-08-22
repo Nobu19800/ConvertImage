@@ -1,0 +1,54 @@
+# ConvertImage CMake config file
+#
+# This file sets the following variables:
+# ConvertImage_FOUND - Always TRUE.
+# ConvertImage_INCLUDE_DIRS - Directories containing the ConvertImage include files.
+# ConvertImage_IDL_DIRS - Directories containing the ConvertImage IDL files.
+# ConvertImage_LIBRARIES - Libraries needed to use ConvertImage.
+# ConvertImage_DEFINITIONS - Compiler flags for ConvertImage.
+# ConvertImage_VERSION - The version of ConvertImage found.
+# ConvertImage_VERSION_MAJOR - The major version of ConvertImage found.
+# ConvertImage_VERSION_MINOR - The minor version of ConvertImage found.
+# ConvertImage_VERSION_REVISION - The revision version of ConvertImage found.
+# ConvertImage_VERSION_CANDIDATE - The candidate version of ConvertImage found.
+
+message(STATUS "Found ConvertImage-@PROJECT_VERSION@")
+set(ConvertImage_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(ConvertImage_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(ConvertImage_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(ConvertImage_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(ConvertImage_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(ConvertImage_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(ConvertImage_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(ConvertImage_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(ConvertImage_VERSION @PROJECT_VERSION@)
+set(ConvertImage_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(ConvertImage_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(ConvertImage_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(ConvertImage_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
